@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+<section class="card">
+  <div class="profile">
+    <div class="avatar" aria-label="avatar">
+      <% if (currentUser.avatar) { %>
+        <img src="<%= currentUser.avatar %>" alt="Profile" />
+      <% } else { %>
+        <div class="placeholder">👤</div>
+      <% } %>
+    </div>
+    <div>
+      <p class="muted">Role</p>
+      <div class="badge <%= currentUser.role.toLowerCase() %>"><%= currentUser.role %></div>
+      <h2>Welcome back, <%= currentUser.name %></h2>
+    </div>
+  </div>
+  <form class="stack" action="/dashboard/profile" method="POST" enctype="multipart/form-data">
+    <h3>Update profile</h3>
+    <label>New password
+      <input type="password" name="password" />
+    </label>
+    <label>Profile picture
+      <input type="file" name="avatar" accept="image/*" />
+    </label>
+    <button type="submit" class="secondary">Save changes</button>
+  </form>
+</section>
+<section class="grid four">
+  <a class="card link" href="/quiz">
+    <h3>Start Quiz</h3>
+    <p>Answer clown questions, one at a time.</p>
+  </a>
+  <a class="card link" href="/leaderboard">
+    <h3>Leaderboard</h3>
+    <p>See how your score stacks up.</p>
+  </a>
+  <a class="card link" href="/chat">
+    <h3>Chat</h3>
+    <p>Talk with fellow clown fans.</p>
+  </a>
+  <a class="card link" href="/messages">
+    <h3>Messages</h3>
+    <p>Check system inbox updates.</p>
+  </a>
+  <% if (currentUser.role === 'Admin' || currentUser.role === 'Owner') { %>
+    <a class="card link" href="/admin">
+      <h3>Admin Panel</h3>
+      <p>Moderate users and edit quiz.</p>
+    </a>
+  <% } %>
+</section>
+<%- include('partials/footer') %>

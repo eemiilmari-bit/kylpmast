@@ -1,0 +1,34 @@
+<%- include('partials/header') %>
+<section class="card">
+  <% if (!question) { %>
+    <h2>No questions available.</h2>
+  <% } else { %>
+    <p class="muted">Question <%= step %> / <%= total %></p>
+    <h2><%= question.question_text %></h2>
+    <form action="/quiz" method="POST" class="stack">
+      <input type="hidden" name="questionId" value="<%= question.id %>" />
+      <input type="hidden" name="step" value="<%= step %>" />
+      <label class="option">
+        <input type="radio" name="answer" value="A" <%= answers[question.id] === 'A' ? 'checked' : '' %> required />
+        <span><%= question.option_a %></span>
+      </label>
+      <label class="option">
+        <input type="radio" name="answer" value="B" <%= answers[question.id] === 'B' ? 'checked' : '' %> required />
+        <span><%= question.option_b %></span>
+      </label>
+      <label class="option">
+        <input type="radio" name="answer" value="C" <%= answers[question.id] === 'C' ? 'checked' : '' %> required />
+        <span><%= question.option_c %></span>
+      </label>
+      <label class="option">
+        <input type="radio" name="answer" value="D" <%= answers[question.id] === 'D' ? 'checked' : '' %> required />
+        <span><%= question.option_d %></span>
+      </label>
+      <div class="actions end">
+        <button type="submit">Next</button>
+      </div>
+    </form>
+    <div class="progress"><div style="width:<%= Math.round((step/total)*100) %>%"></div></div>
+  <% } %>
+</section>
+<%- include('partials/footer') %>

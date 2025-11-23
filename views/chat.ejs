@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+<section class="card">
+  <div class="chat-list">
+    <% if (error === 'muted') { %>
+      <p class="error">You are muted and cannot send messages.</p>
+    <% } %>
+    <% messages.forEach(msg => { %>
+      <div class="chat-item">
+        <div class="avatar small">
+          <% if (msg.avatar) { %><img src="<%= msg.avatar %>" alt="avatar" /><% } else { %><div class="placeholder">🎪</div><% } %>
+        </div>
+        <div class="grow">
+          <div class="chat-meta">
+            <strong><%= msg.name %></strong>
+            <span class="badge <%= msg.role.toLowerCase() %>"><%= msg.role %></span>
+            <span class="muted"><%= new Date(msg.created_at).toLocaleTimeString() %></span>
+          </div>
+          <p><%= msg.content %></p>
+        </div>
+        <% if (currentUser && (currentUser.role === 'Admin' || currentUser.role === 'Owner')) { %>
+          <form method="POST" action="/chat/<%= msg.id %>/delete">
+            <button class="link" type="submit">Delete</button>
+          </form>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+  <form class="chat-input" action="/chat" method="POST">
+    <input type="text" name="content" placeholder="Write a message" />
+    <button type="submit">Send</button>
+  </form>
+</section>
+<%- include('partials/footer') %>

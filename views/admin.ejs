@@ -1,0 +1,89 @@
+<%- include('partials/header') %>
+<section class="card">
+  <h2>User management</h2>
+  <div class="list">
+    <% users.forEach(user => { %>
+      <div class="list-item">
+        <div class="avatar small">
+          <% if (user.avatar) { %><img src="<%= user.avatar %>" alt="avatar" /><% } else { %><div class="placeholder">🤡</div><% } %>
+        </div>
+        <div class="grow">
+          <strong><%= user.name %></strong>
+          <div class="badge <%= user.role.toLowerCase() %>"><%= user.role %></div>
+          <p class="muted">Status: <%= user.status %></p>
+        </div>
+        <% if (!(user.role === 'Owner' && currentUser.role !== 'Owner')) { %>
+          <form action="/admin/user/<%= user.id %>/action" method="POST" class="stack">
+            <div class="actions">
+              <button name="action" value="mute" class="secondary" type="submit">Mute</button>
+              <button name="action" value="unmute" class="secondary" type="submit">Unmute</button>
+              <button name="action" value="ban" class="secondary" type="submit">Ban</button>
+              <button name="action" value="unban" class="secondary" type="submit">Unban</button>
+              <% if (currentUser.role === 'Owner' && user.id !== currentUser.id) { %>
+                <button name="action" value="promote" class="secondary" type="submit">Promote</button>
+                <button name="action" value="demote" class="secondary" type="submit">Demote</button>
+              <% } %>
+            </div>
+          </form>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</section>
+<section class="card">
+  <h2>Quiz editor</h2>
+  <p class="muted">Editing the quiz will archive the current leaderboard.</p>
+  <div class="stack">
+    <% questions.forEach(q => { %>
+      <div class="question-editor">
+        <form method="POST" action="/admin/quiz/<%= q.id %>/edit" class="stack">
+          <input type="text" name="question_text" value="<%= q.question_text %>" required />
+          <div class="grid two">
+            <input type="text" name="option_a" value="<%= q.option_a %>" required />
+            <input type="text" name="option_b" value="<%= q.option_b %>" required />
+            <input type="text" name="option_c" value="<%= q.option_c %>" required />
+            <input type="text" name="option_d" value="<%= q.option_d %>" required />
+          </div>
+          <label>Correct option (A/B/C/D)
+            <input type="text" name="correct_option" value="<%= q.correct_option %>" maxlength="1" required />
+          </label>
+          <div class="actions">
+            <button type="submit" class="secondary">Save</button>
+            <button form="delete-<%= q.id %>" type="submit" class="link">Delete</button>
+          </div>
+        </form>
+        <form id="delete-<%= q.id %>" method="POST" action="/admin/quiz/<%= q.id %>/delete"></form>
+      </div>
+    <% }) %>
+    <form class="question-editor stack" method="POST" action="/admin/quiz/add">
+      <h3>Add new question</h3>
+      <input type="text" name="question_text" placeholder="Question" required />
+      <div class="grid two">
+        <input type="text" name="option_a" placeholder="Option A" required />
+        <input type="text" name="option_b" placeholder="Option B" required />
+        <input type="text" name="option_c" placeholder="Option C" required />
+        <input type="text" name="option_d" placeholder="Option D" required />
+      </div>
+      <label>Correct option
+        <input type="text" name="correct_option" placeholder="A" maxlength="1" required />
+      </label>
+      <button type="submit">Add question</button>
+    </form>
+  </div>
+</section>
+<% if (currentUser.role === 'Owner') { %>
+<section class="card">
+  <h2>Announcements</h2>
+  <form method="POST" action="/admin/announcement" class="stack">
+    <textarea name="content" rows="3" required placeholder="Write announcement"></textarea>
+    <label>Type
+      <select name="type">
+        <option value="General">General</option>
+        <option value="Staff">Staff</option>
+      </select>
+    </label>
+    <button type="submit" class="secondary">Publish</button>
+  </form>
+</section>
+<% } %>
+<%- include('partials/footer') %>
