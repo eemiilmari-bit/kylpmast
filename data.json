@@ -1,0 +1,126 @@
+{
+  "users": [
+    {
+      "id": "8b164203-f26c-422b-8b9d-addc9e591fd6",
+      "name": "Easmox",
+      "passwordHash": "a986ec6ed201663d396157bba471a7b89a6b974a9a4e5683dd759d5bf0d27a19",
+      "role": "owner",
+      "status": "active",
+      "avatar": null,
+      "badges": [
+        "owner"
+      ],
+      "createdAt": 1763917797186
+    }
+  ],
+  "quiz": {
+    "title": "Clown Craft Quiz",
+    "questions": [
+      {
+        "prompt": "What is the traditional name for the central clown in a circus?",
+        "options": [
+          "Ringmaster",
+          "Boss Clown",
+          "Lead Jester",
+          "Grand Joker"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Which face paint design is associated with a classic whiteface clown?",
+        "options": [
+          "White base with delicate features",
+          "Minimal makeup with a red nose",
+          "Full black and white stripes",
+          "No makeup at all"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "prompt": "What prop is most commonly linked with clown slapstick?",
+        "options": [
+          "Feather boa",
+          "Seltzer bottle",
+          "Top hat",
+          "Marbles"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Which circus founder famously featured clowns in 1768?",
+        "options": [
+          "P. T. Barnum",
+          "Joseph Grimaldi",
+          "Philip Astley",
+          "Emmett Kelly"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "prompt": "What term describes a group comedy routine clowns perform together?",
+        "options": [
+          "Cluster gag",
+          "Group jest",
+          "Ring run",
+          "Entrée"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "prompt": "Which clown type is known for oversized clothes and shy behavior?",
+        "options": [
+          "Auguste",
+          "Character clown",
+          "Whiteface",
+          "Tramp/Hobo"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "prompt": "What item does a clown traditionally twist into balloon animals?",
+        "options": [
+          "Latex 260 balloon",
+          "Vinyl ribbon",
+          "Paper streamer",
+          "Foam tube"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "prompt": "Which clown character carries a broom in many classic acts?",
+        "options": [
+          "Charlie Rivel",
+          "Grock",
+          "Lou Jacobs",
+          "Bill Irwin"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Where are clown alley spaces typically located?",
+        "options": [
+          "Near the ticket booth",
+          "Behind the main tent",
+          "Beside the concessions",
+          "Above the rigging"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "What is a common closing flourish after a clown gag?",
+        "options": [
+          "Pie toss",
+          "Ta-da pose",
+          "Flash paper burst",
+          "Ring of fire leap"
+        ],
+        "correctIndex": 1
+      }
+    ]
+  },
+  "leaderboard": [],
+  "scoreboardArchive": [],
+  "chat": [],
+  "messages": [],
+  "announcements": []
+}

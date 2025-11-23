@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clown Quiz</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="announcement" id="announcement" hidden></div>
+  <header>
+    <h1>🎪 Clown Quiz Hub</h1>
+    <div id="session-info"></div>
+  </header>
+
+  <main>
+    <section id="auth-card" class="card">
+      <h2>Login or Register</h2>
+      <label>Name <input id="name" type="text" placeholder="Easmox" /></label>
+      <label>Password <input id="password" type="password" /></label>
+      <label class="file-label">Profile picture (optional) <input id="avatar" type="file" accept="image/*" /></label>
+      <div class="actions">
+        <button id="login-btn">Login</button>
+        <button id="register-btn" class="secondary">Register</button>
+      </div>
+      <p class="hint">Owner account: Easmox / 732800</p>
+      <p id="auth-status" class="status"></p>
+    </section>
+
+    <section id="app" class="grid" hidden>
+      <section class="card">
+        <h2>Menu</h2>
+        <p id="role-badge"></p>
+        <div class="actions">
+          <button id="start-quiz">Start quiz</button>
+          <button id="load-messages" class="secondary">Messages</button>
+        </div>
+        <div class="actions">
+          <label class="file-label">Update avatar <input id="profile-upload" type="file" accept="image/*" /></label>
+        </div>
+        <p id="profile-status" class="status"></p>
+      </section>
+
+      <section class="card" id="quiz-card">
+        <h2>Quiz</h2>
+        <div id="quiz-area">
+          <p class="muted">Press "Start quiz" to begin the 10-question clown quiz.</p>
+        </div>
+        <div id="quiz-controls" class="actions"></div>
+      </section>
+
+      <section class="card">
+        <h2>Leaderboard</h2>
+        <div id="leaderboard"></div>
+        <details>
+          <summary>Archived scoreboards</summary>
+          <div id="archive"></div>
+        </details>
+      </section>
+
+      <section class="card">
+        <h2>Chat</h2>
+        <div id="chat-log" class="scroll"></div>
+        <div class="actions">
+          <input id="chat-input" type="text" placeholder="Send a message" />
+          <button id="chat-send">Send</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Messages</h2>
+        <div id="messages" class="scroll muted"></div>
+      </section>
+
+      <section class="card" id="admin-panel" hidden>
+        <h2>Staff tools</h2>
+        <div class="stack">
+          <div>
+            <h3>Moderate user</h3>
+            <input id="mod-target" type="text" placeholder="username" />
+            <div class="actions">
+              <button data-action="suspend" class="danger mod-btn">Suspend</button>
+              <button data-action="restore" class="secondary mod-btn">Restore</button>
+            </div>
+          </div>
+          <div id="owner-tools" hidden>
+            <h3>Admin roster</h3>
+            <input id="admin-target" type="text" placeholder="username" />
+            <div class="actions">
+              <button id="promote">Promote to admin</button>
+              <button id="demote" class="secondary">Demote to user</button>
+            </div>
+            <h3>Announcements</h3>
+            <textarea id="announce-text" rows="2" placeholder="Share news with everyone or staff"></textarea>
+            <select id="announce-audience">
+              <option value="all">Everyone</option>
+              <option value="staff">Staff</option>
+            </select>
+            <button id="announce">Post announcement</button>
+          </div>
+          <div>
+            <h3>Edit quiz</h3>
+            <textarea id="quiz-json" rows="8" placeholder='[{"prompt":"","options":[],"correctIndex":0}]'></textarea>
+            <button id="save-quiz">Update quiz</button>
+            <p class="muted">Editing the quiz archives the current leaderboard for history.</p>
+          </div>
+        </div>
+        <p id="admin-status" class="status"></p>
+      </section>
+    </section>
+  </main>
+
+  <script src="/script.js"></script>
+</body>
+</html>
