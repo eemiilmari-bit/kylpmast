@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+<section class="card">
+  <div class="flex between">
+    <h2><%= archived ? 'Archived Leaderboard' : 'Current Leaderboard' %></h2>
+    <form method="get" action="/leaderboard">
+      <label>Select board
+        <select name="version" onchange="this.form.submit()">
+          <option value="<%= version %>" <%= viewVersion === version ? 'selected' : '' %>>Current (v<%= version %>)</option>
+          <% archivedVersions.forEach(v => { %>
+            <option value="<%= v.version %>" <%= viewVersion === v.version ? 'selected' : '' %>>Archived v<%= v.version %></option>
+          <% }) %>
+        </select>
+      </label>
+    </form>
+  </div>
+  <ol class="leaderboard">
+    <% entries.forEach((e, idx) => { %>
+      <li>
+        <div class="rank"><%= idx + 1 %></div>
+        <% if (e.avatar) { %><img src="<%= e.avatar %>" class="avatar" alt="avatar"><% } else { %><div class="avatar placeholder"></div><% } %>
+        <div class="details">
+          <strong><%= e.name || e.username %></strong>
+          <span class="muted"><%= new Date(e.createdAt).toLocaleDateString() %></span>
+        </div>
+        <div class="score"><%= e.score %>/<%= e.total %> (<%= e.percentage %>%)</div>
+      </li>
+    <% }) %>
+  </ol>
+</section>
+<%- include('partials/footer') %>

@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+<section class="split">
+  <div class="card">
+    <h3>Inbox</h3>
+    <ul class="list selectable">
+      <% messages.forEach(m => { %>
+        <li class="<%= activeMessage && activeMessage.id === m.id ? 'active' : '' %>">
+          <a href="/messages?id=<%= m.id %>"><strong><%= m.title %></strong><br><span class="muted small"><%= new Date(m.createdAt).toLocaleString() %></span></a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+  <div class="card">
+    <% if (activeMessage) { %>
+      <p class="muted"><%= activeMessage.type %></p>
+      <h3><%= activeMessage.title %></h3>
+      <p><%= activeMessage.body %></p>
+      <p class="muted small">Delivered <%= new Date(activeMessage.createdAt).toLocaleString() %></p>
+    <% } else { %>
+      <p>No message selected.</p>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>

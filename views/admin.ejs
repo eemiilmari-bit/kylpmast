@@ -1,0 +1,72 @@
+<%- include('partials/header') %>
+<section class="card">
+  <h2>User management</h2>
+  <table class="table">
+    <thead><tr><th>Name</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% users.forEach(u => { %>
+        <tr>
+          <td><%= u.name %></td>
+          <td><span class="badge <%= u.role.toLowerCase() %>"><%= u.role %></span></td>
+          <td><%= u.status %></td>
+          <td>
+            <form action="/admin/user/<%= u.id %>/status" method="post" class="inline-form">
+              <select name="action">
+                <option value="active">Set active</option>
+                <option value="muted">Mute</option>
+                <option value="banned">Ban</option>
+                <% if (currentUser.role === 'Owner' && u.role !== 'Owner') { %>
+                  <option value="promote">Promote to admin</option>
+                  <% if (u.role === 'Admin') { %><option value="demote">Demote to user</option><% } %>
+                <% } %>
+              </select>
+              <button type="submit">Apply</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+<section class="card">
+  <h2>Quiz editor</h2>
+  <p class="muted">Editing the quiz will archive the current leaderboard.</p>
+  <form action="/admin/quiz" method="post" class="stack">
+    <% questions.forEach((q, idx) => { %>
+      <div class="card subtle">
+        <label>Question <input name="question" value="<%= q.question %>" required></label>
+        <label>Options (comma separated) <input name="options" value="<%= JSON.parse(q.options || '[]').join(', ') %>" required></label>
+        <label>Correct answer <input name="answer" value="<%= q.answer %>" required></label>
+      </div>
+    <% }) %>
+    <div class="card subtle">
+      <label>Question <input name="question" placeholder="New question"></label>
+      <label>Options (comma separated) <input name="options" placeholder="Option A, Option B"></label>
+      <label>Correct answer <input name="answer" placeholder="Correct option"></label>
+    </div>
+    <button type="submit">Save new quiz version</button>
+  </form>
+</section>
+<section class="card">
+  <div class="flex between">
+    <h2>Announcements</h2>
+    <% if (currentUser.role === 'Owner') { %>
+      <form action="/admin/announcement" method="post" class="stack compact">
+        <label>Content <input name="content" required></label>
+        <label>Type
+          <select name="type">
+            <option value="general">General</option>
+            <option value="staff">Staff</option>
+          </select>
+        </label>
+        <button type="submit">Publish</button>
+      </form>
+    <% } %>
+  </div>
+  <ul class="list">
+    <% announcements.forEach(a => { %>
+      <li><strong><%= a.type %></strong> • <%= a.content %> <span class="muted small">(<%= new Date(a.createdAt).toLocaleString() %>)</span></li>
+    <% }) %>
+  </ul>
+</section>
+<%- include('partials/footer') %>

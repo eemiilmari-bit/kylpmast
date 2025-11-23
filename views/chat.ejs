@@ -1,0 +1,34 @@
+<%- include('partials/header') %>
+<section class="card chat-card">
+  <h2>Community Chat</h2>
+  <div class="chat-window">
+    <% messages.forEach(m => { %>
+      <div class="chat-row">
+        <% if (m.avatar) { %><img src="<%= m.avatar %>" class="avatar" alt="avatar"><% } else { %><div class="avatar placeholder"></div><% } %>
+        <div class="bubble">
+          <div class="flex between">
+            <div>
+              <strong><%= m.name %></strong>
+              <span class="badge <%= m.role.toLowerCase() %>"><%= m.role %></span>
+            </div>
+            <span class="muted"><%= new Date(m.createdAt).toLocaleTimeString() %></span>
+          </div>
+          <p><%= m.content %></p>
+          <% if (currentUser && (currentUser.role === 'Admin' || currentUser.role === 'Owner')) { %>
+            <div class="muted small">Moderation: 
+              <form action="/chat/delete/<%= m.id %>" method="post" class="inline-form"><button type="submit" class="ghost">Delete</button></form>
+              <form action="/chat/mute/<%= m.userId %>" method="post" class="inline-form"><button type="submit" class="ghost">Mute</button></form>
+              <form action="/chat/ban/<%= m.userId %>" method="post" class="inline-form"><button type="submit" class="ghost">Ban</button></form>
+              <form action="/chat/unmute/<%= m.userId %>" method="post" class="inline-form"><button type="submit" class="ghost">Unmute</button></form>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  <form action="/chat" method="post" class="chat-input">
+    <input name="content" placeholder="Say something" required>
+    <button type="submit">Send</button>
+  </form>
+</section>
+<%- include('partials/footer') %>
