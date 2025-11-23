@@ -1,0 +1,4 @@
+node_modules
+sessions.db
+data.db
+public/uploads/*

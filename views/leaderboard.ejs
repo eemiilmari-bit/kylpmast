@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+<section class="card">
+  <h2>Leaderboard · Version <%= currentVersion %></h2>
+  <div class="list">
+    <% leaderboard.forEach((row, idx) => { %>
+      <div class="list-item">
+        <div class="avatar small">
+          <% if (row.avatar) { %>
+            <img src="<%= row.avatar %>" alt="avatar" />
+          <% } else { %>
+            <div class="placeholder">🎈</div>
+          <% } %>
+        </div>
+        <div class="grow">
+          <p class="muted">#<%= idx + 1 %></p>
+          <strong><%= row.name %></strong>
+          <div class="badge <%= row.role.toLowerCase() %>"><%= row.role %></div>
+        </div>
+        <div class="score">Score: <%= row.score %>/<%= row.total %></div>
+        <div class="muted"><%= new Date(row.created_at).toLocaleDateString() %></div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+<section class="card">
+  <h3>Archived leaderboards</h3>
+  <% if (!archived.length) { %>
+    <p class="muted">No archived scores yet.</p>
+  <% } %>
+  <% archived.forEach(item => { %>
+    <div class="list-item">
+      <div class="grow">
+        <strong><%= item.name %></strong>
+        <p class="muted"><%= item.version_label %></p>
+      </div>
+      <div>Score: <%= item.score %>/<%= item.total %></div>
+      <div class="muted"><%= new Date(item.created_at).toLocaleDateString() %></div>
+    </div>
+  <% }) %>
+</section>
+<%- include('partials/footer') %>

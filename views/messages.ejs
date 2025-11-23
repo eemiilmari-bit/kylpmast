@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+<section class="card">
+  <h2>Inbox</h2>
+  <div class="list">
+    <% messages.forEach(msg => { %>
+      <div class="list-item">
+        <div class="grow">
+          <strong><%= msg.title %></strong>
+          <p class="muted"><%= msg.type %> · <%= new Date(msg.created_at).toLocaleString() %></p>
+          <p><%= msg.body %></p>
+        </div>
+      </div>
+    <% }) %>
+    <% if (!messages.length) { %>
+      <p class="muted">No messages yet.</p>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>
