@@ -1,0 +1,64 @@
+<%- include('partials/header') %>
+<section class="card">
+  <div class="flex between">
+    <div class="flex center">
+      <% if (currentUser.avatar) { %>
+        <img src="<%= currentUser.avatar %>" class="avatar large" alt="avatar">
+      <% } else { %>
+        <div class="avatar placeholder large"></div>
+      <% } %>
+      <div>
+        <p class="muted">Welcome back</p>
+        <h2><%= currentUser.name %></h2>
+        <span class="badge <%= currentUser.role.toLowerCase() %>"><%= currentUser.role %></span>
+      </div>
+    </div>
+    <form action="/dashboard/profile" method="post" enctype="multipart/form-data" class="stack compact">
+      <label>Update password <input type="password" name="password"></label>
+      <label>Update avatar <input type="file" name="avatar" accept="image/*"></label>
+      <button type="submit">Save profile</button>
+    </form>
+  </div>
+</section>
+<% if (announcement && !dismissed) { %>
+  <form class="card announcement" action="/announcement/dismiss" method="post">
+    <div>
+      <p class="muted"><%= announcement.type %> announcement</p>
+      <strong><%= announcement.content %></strong>
+    </div>
+    <button type="submit" class="ghost">Dismiss</button>
+  </form>
+<% } %>
+<section class="grid">
+  <a class="card link-card" href="/quiz">
+    <h3>Start Quiz</h3>
+    <p>Answer clown-themed questions.</p>
+  </a>
+  <a class="card link-card" href="/leaderboard">
+    <h3>Leaderboard</h3>
+    <p>See top scores and archives.</p>
+  </a>
+  <a class="card link-card" href="/chat">
+    <h3>Chat</h3>
+    <p>Talk with the community.</p>
+  </a>
+  <a class="card link-card" href="/messages">
+    <h3>Messages</h3>
+    <p>System inbox notifications.</p>
+  </a>
+  <% if (currentUser.role === 'Admin' || currentUser.role === 'Owner') { %>
+    <a class="card link-card" href="/admin">
+      <h3>Admin Panel</h3>
+      <p>Manage users, quiz, and announcements.</p>
+    </a>
+  <% } %>
+</section>
+<section class="card">
+  <h3>Recent system messages</h3>
+  <ul class="list">
+    <% messages.forEach(m => { %>
+      <li><strong><%= m.title %></strong><span class="muted"> • <%= new Date(m.createdAt).toLocaleString() %></span></li>
+    <% }) %>
+  </ul>
+</section>
+<%- include('partials/footer') %>

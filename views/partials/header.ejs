@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - Clown Quiz</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="top-bar">
+    <div class="brand">🤡 Clown Quiz</div>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/auth">Auth</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/quiz">Quiz</a>
+      <a href="/leaderboard">Leaderboard</a>
+      <a href="/chat">Chat</a>
+      <a href="/messages">Messages</a>
+      <% if (currentUser && (currentUser.role === 'Admin' || currentUser.role === 'Owner')) { %>
+        <a href="/admin">Admin</a>
+      <% } %>
+    </nav>
+    <div class="auth-controls">
+      <% if (currentUser) { %>
+        <span class="badge <%= currentUser.role.toLowerCase() %>"><%= currentUser.role %></span>
+        <form action="/auth/logout" method="post" class="inline-form">
+          <button type="submit">Logout</button>
+        </form>
+      <% } %>
+    </div>
+  </header>
+  <main class="container">

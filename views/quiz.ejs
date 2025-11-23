@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+<section class="card quiz-card">
+  <div class="flex between">
+    <p>Question <strong><%= index + 1 %></strong> / <%= total %></p>
+    <div class="progress"><div style="width: <%= ((index+1)/total)*100 %>%"></div></div>
+  </div>
+  <% if (question) { %>
+    <h3><%= question.question %></h3>
+    <form action="/quiz/answer" method="post" class="stack">
+      <input type="hidden" name="index" value="<%= index %>">
+      <% JSON.parse(question.options || '[]').forEach(opt => { %>
+        <label class="option">
+          <input type="radio" name="answer" value="<%= opt %>" <%= answers[index] === opt ? 'checked' : '' %>>
+          <span><%= opt %></span>
+        </label>
+      <% }) %>
+      <button type="submit">Next</button>
+    </form>
+  <% } else { %>
+    <p>No question found.</p>
+  <% } %>
+</section>
+<%- include('partials/footer') %>

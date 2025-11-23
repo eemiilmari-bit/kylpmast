@@ -1,0 +1,10 @@
+<%- include('partials/header') %>
+<section class="card">
+  <h2>Quiz completed</h2>
+  <p><strong><%= summary.score %></strong> correct out of <%= summary.total %> (<%= summary.percentage %>%).</p>
+  <div class="actions">
+    <form action="/quiz/leaderboard" method="post" class="inline-form"><button type="submit">Add to leaderboard</button></form>
+    <form action="/quiz/skip-leaderboard" method="post" class="inline-form"><button type="submit" class="ghost">Skip</button></form>
+  </div>
+</section>
+<%- include('partials/footer') %>
