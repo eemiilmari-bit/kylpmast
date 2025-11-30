@@ -1,0 +1,14 @@
+{
+  "name": "kylpmast",
+  "version": "1.0.0",
+  "description": "Clown quiz app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --check server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
